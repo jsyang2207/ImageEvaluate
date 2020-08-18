@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="NvEncode">
+      <UniqueIdentifier>{5f7f63d3-ecf0-485f-af26-8fe48d91098b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="VideoSDK">
+      <UniqueIdentifier>{a623eed1-bca5-4e7d-939b-9ac5761225fb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ImageEvaluation.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageEvaluationDlg.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="video_reader.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="encodeCuda.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="getSSIM.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ESMNvenc.h">
+      <Filter>NvEncode</Filter>
+    </ClInclude>
+    <ClInclude Include="ESMNvencCore.h">
+      <Filter>NvEncode</Filter>
+    </ClInclude>
+    <ClInclude Include="ESMNvencQueue.h">
+      <Filter>NvEncode</Filter>
+    </ClInclude>
+    <ClInclude Include="dynlink_cuda.h">
+      <Filter>NvEncode</Filter>
+    </ClInclude>
+    <ClInclude Include="dynlink_cuda_cuda.h">
+      <Filter>NvEncode</Filter>
+    </ClInclude>
+    <ClInclude Include="nvEncodeAPI.h">
+      <Filter>NvEncode</Filter>
+    </ClInclude>
+    <ClInclude Include="VideoDecoder.h">
+      <Filter>VideoSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="VideoEncoder.h">
+      <Filter>VideoSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameQueue.h">
+      <Filter>VideoSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="NvHWEncoder.h">
+      <Filter>VideoSDK</Filter>
+    </ClInclude>
+    <ClInclude Include="NvTranscoder.h">
+      <Filter>VideoSDK</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ImageEvaluation.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageEvaluationDlg.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="video_reader.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="encodeCuda.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="getSSIM.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ESMNvenc.cpp">
+      <Filter>NvEncode</Filter>
+    </ClCompile>
+    <ClCompile Include="ESMNvencCore.cpp">
+      <Filter>NvEncode</Filter>
+    </ClCompile>
+    <ClCompile Include="dynlink_cuda.cpp">
+      <Filter>NvEncode</Filter>
+    </ClCompile>
+    <ClCompile Include="VideoEncoder.cpp">
+      <Filter>VideoSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="VideoDecoder.cpp">
+      <Filter>VideoSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="NvHWEncoder.cpp">
+      <Filter>VideoSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameQueue.cpp">
+      <Filter>VideoSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="dynlink_nvcuvid.cpp">
+      <Filter>VideoSDK</Filter>
+    </ClCompile>
+    <ClCompile Include="NvTranscoder.cpp">
+      <Filter>VideoSDK</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ImageEvaluation.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\ImageEvaluation.rc2">
+      <Filter>리소스 파일</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\ImageEvaluation.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="cuda.cu">
+      <Filter>소스 파일</Filter>
+    </CudaCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="cuda.cuh">
+      <Filter>헤더 파일</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

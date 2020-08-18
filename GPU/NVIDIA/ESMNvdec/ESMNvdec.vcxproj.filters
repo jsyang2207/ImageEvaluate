@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="colorspace">
+      <UniqueIdentifier>{3290452f-b54e-4c9d-b2d1-0e71c92163e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nvdec">
+      <UniqueIdentifier>{dc61c345-dca2-4145-a453-867f8d51275e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resize">
+      <UniqueIdentifier>{f985f83a-79ce-48e7-a16d-252839ddb0c9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="colorspace\colorspace_converter.h">
+      <Filter>colorspace</Filter>
+    </ClInclude>
+    <ClInclude Include="nvdec\dynlink_cuda.h">
+      <Filter>nvdec</Filter>
+    </ClInclude>
+    <ClInclude Include="nvdec\dynlink_cuda_cuda.h">
+      <Filter>nvdec</Filter>
+    </ClInclude>
+    <ClInclude Include="nvdec\dynlink_cuviddec.h">
+      <Filter>nvdec</Filter>
+    </ClInclude>
+    <ClInclude Include="nvdec\dynlink_nvcuvid.h">
+      <Filter>nvdec</Filter>
+    </ClInclude>
+    <ClInclude Include="resize\resizer.h">
+      <Filter>resize</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ESMNvdec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ESMNvdecCore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="nvdec\dynlink_cuda.cpp">
+      <Filter>nvdec</Filter>
+    </ClCompile>
+    <ClCompile Include="nvdec\dynlink_nvcuvid.cpp">
+      <Filter>nvdec</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ESMNvdec.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ESMNvdecCore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="colorspace\colorspace_converter.cu">
+      <Filter>colorspace</Filter>
+    </CudaCompile>
+    <CudaCompile Include="resize\resizer.cu">
+      <Filter>resize</Filter>
+    </CudaCompile>
+  </ItemGroup>
+</Project>
