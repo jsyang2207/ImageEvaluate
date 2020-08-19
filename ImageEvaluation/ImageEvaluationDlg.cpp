@@ -177,6 +177,10 @@ BOOL CImageEvaluationDlg::OnInitDialog()
 	m_crop_combo.SetCurSel(0);
 	m_bitrate_combo.SetCurSel(0);
 
+
+
+	m_dptr = NULL;
+	m_nDptrPitch = 0;
 	m_nBitstreamCapacity = 1024 * 1024 * 2;
 	m_pBitstream = (uint8_t*)malloc(m_nBitstreamCapacity);
 	
@@ -316,8 +320,8 @@ int CImageEvaluationDlg::VideoRender()
 	int nextpts = 0;
 	int ptr = 0;
 
-	outputFile = fopen("C:\\Users\\4DReplay\\Desktop\\encode.264", "wb");
-	char* outpath = "C:\\Users\\4DReplay\\Desktop\\encode1.h264";
+	outputFile = fopen("encode.264", "wb");
+	char* outpath = "encode1.h264";
 	while (!glfwWindowShouldClose(window)&&renderFlag==0) {
 		
 		
@@ -582,22 +586,39 @@ int CImageEvaluationDlg::EncoderVideo(Mat& img_src, uint8_t* m_pBitstream, long 
 		m_nvEncoderCtx.fps = m_nOutputFPS;
 		m_nvEncoderCtx.colorspace = ESMNvenc::COLORSPACE_T::YV12;
 		m_nvEncoder->Initialize(&m_nvEncoderCtx);
-		cudaMallocPitch(&cuDeviceptr, &pitch, outputWidth*1.5, outputHeight*1.5);
-	}
-	Mat encodeMat(img_src.rows*1.5, img_src.cols*1.5, CV_8UC1);
 
-	cv::cvtColor(img_src, encodeMat, COLOR_BGR2YUV_YV12);
-	/*YV12DemensionInfo yv12;
-	computeYVDemensionInfo(&yv12, 1920, 1080);
-	yv12.strideC;
-	yv12.strideY;
-	*///imshow("Test", encodeMat);
+		//CUresult cret = ::cuMemAllocPitch((CUdeviceptr*)&pFrame, &cuPitchConverted, _context->width, (_context->height >> 1) * 3, 16);
+		::cudaMallocPitch(&m_dptr, &m_nDptrPitch, outputWidth, (outputHeight >> 1) * 3);
+	}
+	cv::Mat cvtMat((img_src.rows >> 1) * 3, img_src.cols, CV_8UC1);
+	cv::cuda::GpuMat encMat((outputHeight >> 1) * 3, outputWidth, CV_8UC1, m_dptr, m_nDptrPitch);
+	cv::cvtColor(img_src, cvtMat, COLOR_BGR2YUV_YV12);
+
+
+	encMat.upload(cvtMat);
+
+
+
+
+
+	/*
+	uint8_t* lumaDst = m_dptr;
+	uint8_t* chromaDst = lumaDst + m_nDptrPitch * outputHeight;
+	int32_t strideSrc = cvtMat.step;
+	uint8_t* lumaSrc = cvtMat.data;
+	uint8_t* chromaSrc = lumaSrc + strideSrc * outputHeight;
+	::cudaMemcpy2D(lumaDst, m_nDptrPitch, lumaSrc, strideSrc, outputWidth, outputHeight, cudaMemcpyHostToDevice);
+	::cudaMemcpy2D(chromaDst, m_nDptrPitch, chromaSrc, strideSrc, outputWidth, outputHeight >> 1, cudaMemcpyHostToDevice);
+	//::cudaMemcpy2D(m_dptr, m_nDptrPitch, encodeMat.data, outputWidth, outputWidth, outputHeight, cudaMemcpyHostToDevice);
+	//::cudaMemcpy2D(m_dptr + m_nDptrPitch * outputHeight, m_nDptrPitch, encodeMat.data + outputWidth * outputHeight, outputWidth, outputWidth, outputHeight >> 1, cudaMemcpyHostToDevice);
+	//::cudaMemcpy2D(m_dptr + m_nDptrPitch * outputHeight + (m_nDptrPitch >> 1) * (outputHeight >> 1), m_nDptrPitch >> 1, encodeMat.data + encodeMat.step * outputHeight + (encodeMat.step >> 1) * (outputHeight >> 1), encodeMat.step >> 1, outputWidth >> 1, outputHeight >> 1, cudaMemcpyHostToDevice);
+	*/
+	m_nvEncoder->Encode(m_dptr, m_nDptrPitch, pts, m_pBitstream, m_nBitstreamCapacity, bitstreamSize, bitstreamTimestamp);
 	
-	cudaMemcpy2D(cuDeviceptr, pitch, encodeMat.data, outputWidth, outputWidth, outputHeight*1.5, cudaMemcpyHostToDevice);
-	m_nvEncoder->Encode(cuDeviceptr, pitch, pts, m_pBitstream, m_nBitstreamCapacity, bitstreamSize, bitstreamTimestamp);
-	
-	
-	fwrite(m_pBitstream, 1, bitstreamSize, outputFile);
+	if (bitstreamSize > 0)
+	{
+		::fwrite(m_pBitstream, 1, bitstreamSize, outputFile);
+	}
 
 	return 0;
 }
@@ -717,8 +738,7 @@ void CImageEvaluationDlg::OnBnClickedButton6()
 int CImageEvaluationDlg::MakeOutFile(VideoReaderState* state)
 {
 	auto& av_format_ctx = state->av_format_ctx;
-	
-	char outFile[100] = "C:\\Users\\4DReplay\\Desktop\\Muxingtest.mp4";
+	char outFile[100] = "Muxingtest.mp4";
 	av_o_format = av_guess_format(NULL, outFile, NULL);
 
 	stream_mapping_size = av_format_ctx->nb_streams;
@@ -769,7 +789,7 @@ int CImageEvaluationDlg::MakeOutFile(VideoReaderState* state)
 
 		}
 	}
-	av_dm_ctx->bit_rate = m_nvEncoderCtx.bitrate;
+	//av_dm_ctx->bit_rate = m_nvEncoderCtx.bitrate;
 	response = avformat_write_header(av_dm_ctx, NULL);
 	if (response < 0) {
 		fprintf(stderr, "Error occurred when opening output file\n");

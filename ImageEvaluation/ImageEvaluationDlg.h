@@ -78,11 +78,13 @@ public:
 	CStatic m_dName;
 	CString fileName;
 
-
+	uint8_t*				m_dptr;
+	size_t					m_nDptrPitch;
 	ESMNvenc::CONTEXT_T		m_nvEncoderCtx;
-	ESMNvenc * m_nvEncoder;
-	int m_nBitstreamCapacity;
-	uint8_t* m_pBitstream;
+	ESMNvenc *				m_nvEncoder;
+	int						m_nBitstreamCapacity;
+	uint8_t*				m_pBitstream;
+
 	CUdeviceptr* cuDeviceptr;
 	CUdeviceptr* cuDeviceptr1;
 	CUdeviceptr* cuDeviceptr2;

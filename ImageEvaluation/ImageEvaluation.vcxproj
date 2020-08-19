@@ -190,7 +190,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)3rdparty\OpenCV\v4.4.0\lib\$(Configuration);$(SolutionDir)3rdparty\ffmpeg\v4.2.2\lib;$(SolutionDir)3rdparty\OpenGL\lib;$(SolutionDir)Out\$(Platform)\$(Configuration)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opencv_cudev440.lib;opencv_cudawarping440.lib;opencv_highgui440.lib;opencv_video440.lib;avcodec.lib;avdevice.lib;avfilter.lib;avformat.lib;avutil.lib;postproc.lib;swresample.lib;swscale.lib;glfw3dll.lib;glfw3.lib;glut32.lib;opengl32.lib;glu32.lib;glext.lib;cuda.lib;cudart.lib;cufft.lib;cublas.lib;ESMNvdec.lib;ESMNvenc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>cudart_static.lib;nppc.lib;nppial.lib;nppicc.lib;nppidei.lib;nppif.lib;nppig.lib;nppim.lib;nppist.lib;nppisu.lib;nppitc.lib;npps.lib;cublas.lib;cufft.lib;opencv_highgui440.lib;opencv_superres440.lib;opencv_cudafeatures2d440.lib;opencv_cudaoptflow440.lib;opencv_cudabgsegm440.lib;opencv_cudastereo440.lib;opencv_cudaobjdetect440.lib;opencv_xfeatures2d440.lib;opencv_cudacodec440.lib;opencv_videoio440.lib;opencv_optflow440.lib;opencv_ximgproc440.lib;opencv_imgcodecs440.lib;opencv_cudawarping440.lib;opencv_cudalegacy440.lib;opencv_video440.lib;opencv_objdetect440.lib;opencv_cudaimgproc440.lib;opencv_cudafilters440.lib;opencv_ml440.lib;opencv_cudaarithm440.lib;opencv_shape440.lib;opencv_calib3d440.lib;opencv_features2d440.lib;opencv_flann440.lib;opencv_imgproc440.lib;opencv_core440.lib;opencv_cudev440.lib;opencv_bgsegm440.lib;avcodec.lib;avdevice.lib;avfilter.lib;avformat.lib;avutil.lib;postproc.lib;swresample.lib;swscale.lib;glfw3dll.lib;glfw3.lib;glut32.lib;opengl32.lib;glu32.lib;glext.lib;cuda.lib;cudart.lib;ESMNvdec.lib;ESMNvenc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>LIBCMT.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>$(SolutionDir)Out\$(Platform)\$(Configuration)\lib\$(ProjectName).lib</ImportLibrary>
     </Link>
@@ -210,10 +210,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <CustomBuild Include="cuda.cuh" />
-    <ClInclude Include="encodeCuda.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="framework.h" />
     <ClInclude Include="getSSIM.h" />
     <ClInclude Include="ImageEvaluation.h" />
@@ -224,10 +220,6 @@
     <ClInclude Include="video_reader.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="encodeCuda.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="getSSIM.cpp" />
     <ClCompile Include="ImageEvaluation.cpp" />
     <ClCompile Include="ImageEvaluationDlg.cpp" />
