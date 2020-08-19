@@ -8,6 +8,7 @@
 #include "ImageEvaluationDlg.h"
 #include "afxdialogex.h"
 #include <ESMLocks.h>
+#include <cuda.h>
 
 //#include "cuda.cuh"
 
@@ -587,32 +588,28 @@ int CImageEvaluationDlg::EncoderVideo(Mat& img_src, uint8_t* m_pBitstream, long 
 		m_nvEncoderCtx.colorspace = ESMNvenc::COLORSPACE_T::YV12;
 		m_nvEncoder->Initialize(&m_nvEncoderCtx);
 
-		//CUresult cret = ::cuMemAllocPitch((CUdeviceptr*)&pFrame, &cuPitchConverted, _context->width, (_context->height >> 1) * 3, 16);
-		::cudaMallocPitch(&m_dptr, &m_nDptrPitch, outputWidth, (outputHeight >> 1) * 3);
+		::cuMemAllocPitch((CUdeviceptr*)&m_dptr, &m_nDptrPitch, outputWidth, (outputHeight >> 1) * 3, 16);
 	}
 	cv::Mat cvtMat((img_src.rows >> 1) * 3, img_src.cols, CV_8UC1);
-	cv::cuda::GpuMat encMat((outputHeight >> 1) * 3, outputWidth, CV_8UC1, m_dptr, m_nDptrPitch);
+	//cv::cuda::GpuMat encMat((outputHeight >> 1) * 3, outputWidth, CV_8UC1, m_dptr, m_nDptrPitch);
 	cv::cvtColor(img_src, cvtMat, COLOR_BGR2YUV_YV12);
-
-
-	encMat.upload(cvtMat);
-
+	//encMat.upload(cvtMat);
 
 
 
-
-	/*
 	uint8_t* lumaDst = m_dptr;
-	uint8_t* chromaDst = lumaDst + m_nDptrPitch * outputHeight;
+	uint8_t* chromaVDst = lumaDst + m_nDptrPitch * outputHeight;
+	uint8_t* chromaUDst = chromaVDst + (m_nDptrPitch >> 1) * (outputHeight >> 1);
 	int32_t strideSrc = cvtMat.step;
 	uint8_t* lumaSrc = cvtMat.data;
-	uint8_t* chromaSrc = lumaSrc + strideSrc * outputHeight;
+	uint8_t* chromaVSrc = lumaSrc + strideSrc * outputHeight;
+	uint8_t* chromaUSrc = chromaVSrc + (strideSrc >> 1) * (outputHeight >> 1);
 	::cudaMemcpy2D(lumaDst, m_nDptrPitch, lumaSrc, strideSrc, outputWidth, outputHeight, cudaMemcpyHostToDevice);
-	::cudaMemcpy2D(chromaDst, m_nDptrPitch, chromaSrc, strideSrc, outputWidth, outputHeight >> 1, cudaMemcpyHostToDevice);
+	::cudaMemcpy2D(chromaVDst, m_nDptrPitch >> 1, chromaVSrc, strideSrc >> 1, outputWidth >> 1, outputHeight >> 1, cudaMemcpyHostToDevice);
+	::cudaMemcpy2D(chromaUDst, m_nDptrPitch >> 1, chromaUSrc, strideSrc >> 1, outputWidth >> 1, outputHeight >> 1, cudaMemcpyHostToDevice);
 	//::cudaMemcpy2D(m_dptr, m_nDptrPitch, encodeMat.data, outputWidth, outputWidth, outputHeight, cudaMemcpyHostToDevice);
 	//::cudaMemcpy2D(m_dptr + m_nDptrPitch * outputHeight, m_nDptrPitch, encodeMat.data + outputWidth * outputHeight, outputWidth, outputWidth, outputHeight >> 1, cudaMemcpyHostToDevice);
 	//::cudaMemcpy2D(m_dptr + m_nDptrPitch * outputHeight + (m_nDptrPitch >> 1) * (outputHeight >> 1), m_nDptrPitch >> 1, encodeMat.data + encodeMat.step * outputHeight + (encodeMat.step >> 1) * (outputHeight >> 1), encodeMat.step >> 1, outputWidth >> 1, outputHeight >> 1, cudaMemcpyHostToDevice);
-	*/
 	m_nvEncoder->Encode(m_dptr, m_nDptrPitch, pts, m_pBitstream, m_nBitstreamCapacity, bitstreamSize, bitstreamTimestamp);
 	
 	if (bitstreamSize > 0)

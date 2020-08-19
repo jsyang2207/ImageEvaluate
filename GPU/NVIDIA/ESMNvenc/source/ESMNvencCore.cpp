@@ -617,7 +617,7 @@ NVENCSTATUS ESMNvenc::Core::NVEncodeFrame(ESMNvenc::Core::BUFFER_T * nvencBuffer
 		m.dstMemoryType = CU_MEMORYTYPE_DEVICE;
 		m.dstDevice = (CUdeviceptr)nvencBuffer->input.dptr;
 		m.dstPitch = nvencBuffer->input.pitch;
-		m.WidthInBytes = _context->width;//nvencBuffer->input.pitch;
+		m.WidthInBytes = nvencBuffer->input.pitch;
 		m.Height = height;
 		::cuMemcpy2D(&m);
 

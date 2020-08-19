@@ -78,6 +78,7 @@ public:
 	CStatic m_dName;
 	CString fileName;
 
+	//CUcontext				m_cuContext;
 	uint8_t*				m_dptr;
 	size_t					m_nDptrPitch;
 	ESMNvenc::CONTEXT_T		m_nvEncoderCtx;
