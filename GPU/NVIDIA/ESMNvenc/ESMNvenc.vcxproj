@@ -88,16 +88,16 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(ProjectDir)Release\bin\</OutDir>
-    <IntDir>$(ProjectDir)Release\Intermediates\</IntDir>
+    <OutDir>$(SolutionDir)Out\$(Platform)\$(Configuration)\bin\</OutDir>
+    <IntDir>$(SolutionDir)Out\$(Platform)\$(Configuration)\intermediate\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(ProjectDir)Debug\bin\</OutDir>
-    <IntDir>$(ProjectDir)Debug\intermediate\</IntDir>
+    <OutDir>$(SolutionDir)Out\$(Platform)\$(Configuration)\bin\</OutDir>
+    <IntDir>$(SolutionDir)Out\$(Platform)\$(Configuration)\intermediate\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -120,13 +120,15 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <ImportLibrary>$(ProjectDir)Release\lib\$(ProjectName).lib</ImportLibrary>
+      <ImportLibrary>$(SolutionDir)Out\$(Platform)\$(Configuration)\lib\$(ProjectName).lib</ImportLibrary>
       <AdditionalLibraryDirectories>$(CUDA_PATH_V10_1)\lib\x64;..\..\GPerfTools\lib;$(ProjectDir)Release\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libtcmalloc_minimal.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ForceSymbolReferences>__tcmalloc</ForceSymbolReferences>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <ForceSymbolReferences>
+      </ForceSymbolReferences>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(ProjectDir)$(Configuration)\bin\ESMNvenc.dll $(SolutionDir)bin\x64\$(Configuration)</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -158,14 +160,15 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <ImportLibrary>$(ProjectDir)Debug\lib\$(ProjectName).lib</ImportLibrary>
+      <ImportLibrary>$(SolutionDir)Out\$(Platform)\$(Configuration)\lib\$(ProjectName).lib</ImportLibrary>
       <AdditionalLibraryDirectories>$(CUDA_PATH_V10_1)\lib\x64;$(ProjectDir)Debug\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <ForceSymbolReferences>
       </ForceSymbolReferences>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(ProjectDir)$(Configuration)\bin\ESMNvenc.dll $(SolutionDir)bin\x64\$(Configuration)</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
